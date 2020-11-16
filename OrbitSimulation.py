@@ -38,14 +38,14 @@ while True:
 
 EarthR = EOQ(SME, EccE, theta)
 
-t = np.arange(0, 1000, 100)
+t = np.arange(0, 1000, 1)
 for i in range(len(t)):
     EXCoord = EarthR[i] * np.sin(theta)
     EYCoord = EarthR[i] * np.cos(theta)
 
     plt.figure()
     plt.plot(0, 0, "*", color="gold")
-    plt.plot(EXCoord, EYCoord, color="forestgreen")
+    plt.plot(EXCoord[i], EYCoord[i], ".", color="forestgreen")
     plt.xlim(-2, 2)
     plt.ylim(-2, 2)
     plt.title("Orbit Simulation")
