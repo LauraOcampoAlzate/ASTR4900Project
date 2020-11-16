@@ -25,10 +25,22 @@ def EOQ(A, E):
     for i in range(len(theta)):
         if (phi % 10) == 0 or i == theta[0]:
             R = (A * (1 - E**2)) / (1 + E * np.cos(theta))
-            
-            snapshot(S, 100, eps)
-            
     phi += 1
+    
+    plt.figure()
+    plt.plot(0, 0, "*")
+    plt.plot(EXCoord, EYCoord)
+
+    plt.xlim(-2, 2)
+    plt.ylim(-2, 2)
+    plt.title("Orbit Simulation")
+    plt.xlabel('x')
+    plt.ylabel('y')        
+
+    fr = int(phi/20)
+    plt.savefig(f"Frame{fr:03d}.png")
+    plt.close()    
+
     return R
 
 
@@ -44,34 +56,7 @@ def VEL(D, S):
     return V
 
 
-def snapshot(s, frame, eps2):
-    '''
-    Saves a plot for a specific set of values.
-    Description of variables:
-        s: vector of positions and velocities
-        frame: number frame
-        m: masses
-        eps2: the eccentricity squared
-    '''
-    # Plots all particles
-    plt.figure()
-    plt.plot(0, 0, "*")
-    plt.plot(EXCoord, EYCoord)
-
-    # Limits for the axes and other aesthetic things
-    plt.xlim(-2, 2)
-    plt.ylim(-2, 2)
-    plt.title("Movie of Orbits")
-    plt.xlabel('x')
-    plt.ylabel('y')
-    # saves frame and closes plots
-    fr = int(frame / 10)
-    plt.savefig(f"Frame{fr:03d}.png")
-    plt.close()
-
-
 #Initial Conditions
-
 theta = np.linspace(0, 2*np.pi, 1000)
 SME = 1 #in AU
 while True:
@@ -93,4 +78,5 @@ eps = EccE ** 2
 
 EXCoord = EarthR * np.sin(theta)
 EYCoord = EarthR * np.cos(theta)
+
 
