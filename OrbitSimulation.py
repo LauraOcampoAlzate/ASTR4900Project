@@ -23,7 +23,7 @@ def EOQ(A, E, THET):
 
 
 #Initial Conditions
-theta = np.linspace(0, 2*np.pi, 1000)
+theta = np.linspace(0, 2*np.pi, 500)
 SME = 1 #in AU
 SMJ = 5.2 #in AU
 while True:
@@ -50,18 +50,22 @@ while True:
 
 EarthR = EOQ(SME, EccE, theta)
 JupiterR = EOQ(SMJ, EccJ, theta)
+EXCoord = EarthR * np.sin(theta)
+EYCoord = EarthR * np.cos(theta)
+JXCoord = JupiterR * np.sin(theta)
+JYCoord = JupiterR * np.cos(theta)
 
-t = np.arange(0, 1000, 1)
+t = np.arange(0, 500, 1)
 for i in range(len(t)):
     EXCoord = EarthR * np.sin(theta)
     EYCoord = EarthR * np.cos(theta)
     JXCoord = JupiterR * np.sin(theta)
     JYCoord = JupiterR * np.cos(theta)
-
-    plt.figure()
-    plt.plot(0, 0, "*", color="gold")
-    plt.plot(EXCoord[i], EYCoord[i], ".", color="forestgreen")
-    plt.plot(JXCoord[i], JYCoord[i], ".", color="orange")
+   
+    plt.style.use('dark_background')
+    plt.plot(0, 0, "*", color="gold", ms= 10)
+    plt.plot(EXCoord[i+5], EYCoord[i], 'o', color="forestgreen", ms= 1)
+    plt.plot(JXCoord[i+5], JYCoord[i], 'o', color="orange", ms=5)
     plt.xlim(-6, 6)
     plt.ylim(-6, 6)
     plt.title("Earth's Orbit with Eccentricity " + str(EccE) +
