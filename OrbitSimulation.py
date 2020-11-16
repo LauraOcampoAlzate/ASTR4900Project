@@ -9,8 +9,6 @@ Created on Wed Nov 11 10:45:08 2020
 import numpy as np
 import scipy.constants as sc
 import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-import matplotlib.animation as animation
 
 def EOQ(A, E):
     """This is the Elliptical Orbit Equation (EOQ) where
@@ -25,22 +23,23 @@ def EOQ(A, E):
     for i in range(len(theta)):
         if (phi % 10) == 0 or i == theta[0]:
             R = (A * (1 - E**2)) / (1 + E * np.cos(theta))
-    phi += 1
+
     
-    plt.figure()
-    plt.plot(0, 0, "*")
-    plt.plot(EXCoord, EYCoord)
+        plt.figure()
+        plt.plot(0, 0, "*")
+        plt.plot(EXCoord, EYCoord)
 
-    plt.xlim(-2, 2)
-    plt.ylim(-2, 2)
-    plt.title("Orbit Simulation")
-    plt.xlabel('x')
-    plt.ylabel('y')        
+        plt.xlim(-2, 2)
+        plt.ylim(-2, 2)
+        plt.title("Orbit Simulation")
+        plt.xlabel('x')
+        plt.ylabel('y')        
 
-    fr = int(phi/20)
-    plt.savefig(f"Frame{fr:03d}.png")
-    plt.close()    
-
+        fr = int(phi/20)
+        plt.savefig(f"Frame{fr:03d}.png")
+        plt.close()  
+    
+    phi += 1
     return R
 
 
@@ -73,10 +72,6 @@ while True:
 EarthR = EOQ(SME, EccE)
 EarthV = VEL(EarthR, SME)
 
-S = np.array([EarthR, EarthV])
-eps = EccE ** 2
-
 EXCoord = EarthR * np.sin(theta)
 EYCoord = EarthR * np.cos(theta)
-
 
