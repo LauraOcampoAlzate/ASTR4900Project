@@ -10,6 +10,7 @@ import numpy as np
 import scipy.constants as sc
 import matplotlib.pyplot as plt
 
+
 def EOQ(A, E):
     """This is the Elliptical Orbit Equation (EOQ) where
     we are finding r, the distance from the focus. The equation
@@ -22,24 +23,8 @@ def EOQ(A, E):
     phi = 0
     for i in range(len(theta)):
         if (phi % 10) == 0 or i == theta[0]:
-            R = (A * (1 - E**2)) / (1 + E * np.cos(theta))
-
-    
-        plt.figure()
-        plt.plot(0, 0, "*")
-        plt.plot(EXCoord, EYCoord)
-
-        plt.xlim(-2, 2)
-        plt.ylim(-2, 2)
-        plt.title("Orbit Simulation")
-        plt.xlabel('x')
-        plt.ylabel('y')        
-
-        fr = int(phi/20)
-        plt.savefig(f"Frame{fr:03d}.png")
-        plt.close()  
-    
-    phi += 1
+            R = (A * (1 - E**2)) / (1 + E * np.cos(theta))  
+            phi += 1   
     return R
 
 
@@ -75,3 +60,17 @@ EarthV = VEL(EarthR, SME)
 EXCoord = EarthR * np.sin(theta)
 EYCoord = EarthR * np.cos(theta)
 
+for i in range(len(phi)):
+    plt.figure()
+    plt.plot(0, 0, "*")
+    plt.plot(EXCoord, EYCoord)
+
+    plt.xlim(-2, 2)
+    plt.ylim(-2, 2)
+    plt.title("Orbit Simulation")
+    plt.xlabel('x')
+    plt.ylabel('y')        
+
+    fr = int(i/20)
+    plt.savefig(f"Frame{fr:03d}.png")
+    plt.close()
