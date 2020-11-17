@@ -7,7 +7,6 @@ Created on Wed Nov 11 10:45:08 2020
 """
 
 import numpy as np
-import scipy.constants as sc
 import matplotlib.pyplot as plt
 
 
@@ -17,8 +16,7 @@ def EOQ(A, E, THET):
     is dependent on A, the semi-major axis, E, the eccentricity, and
     THET, the angle around the orbit. We are also assuming that the orbit
     is at initial angle of 0 degrees."""
-
-    R = (A * (1 - E**2)) / (1 + E * np.cos(theta))    
+    R = (A * (1 - E**2)) / (1 + E * np.cos(THET))    
     return R
 
 
@@ -39,7 +37,7 @@ while True:
 
 while True:
     try:
-        EccJ = float(input("What would you like for Jupter's eccentricity?"))
+        EccJ = float(input("What would you like for Jupiter's eccentricity?"))
     except ValueError:
         print("Please pick a number between 0 and 1")
         continue
@@ -61,11 +59,10 @@ for i in range(len(t)):
     EYCoord = EarthR * np.cos(theta)
     JXCoord = JupiterR * np.sin(theta)
     JYCoord = JupiterR * np.cos(theta)
-   
     plt.style.use('dark_background')
-    plt.plot(0, 0, "*", color="gold", ms= 10)
-    plt.plot(EXCoord[i+5], EYCoord[i], 'o', color="forestgreen", ms= 1)
-    plt.plot(JXCoord[i+5], JYCoord[i], 'o', color="orange", ms=5)
+    plt.plot(0, 0, "*", color="gold", ms=10)
+    plt.plot(EXCoord[i], EYCoord[i], 'o', color="forestgreen", ms=1)
+    plt.plot(JXCoord[i], JYCoord[i], 'o', color="orange", ms=5)
     plt.xlim(-6, 6)
     plt.ylim(-6, 6)
     plt.title("Earth's Orbit with Eccentricity " + str(EccE) +
