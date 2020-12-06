@@ -22,18 +22,15 @@ def EOQ(A, E, THET):
 
 #Initial Conditions
 theta = np.linspace(0, 2*np.pi, 500)
-SME = 1 #in AU
-SMJ = 5.2 #in AU
-while True:
-    try:
-        EccE = float(input("What would you like for Earth's eccentricity?"))
-    except ValueError:
-        print("Please pick a number between 0 and 1")
-        continue
-    if EccE < 0.0 and EccE > 1.0:
-        print("Please pick a number between 0 and 1")
-        continue
-    break
+SMMerc = 0.4 #AU
+EccMerc = 0.205
+SMV = 0.7 #AU
+EccV = 0.007
+SME = 1 #AU
+EccE = 0.017
+SMMars = 1.5 #AU
+EccMars = 0.094
+SMJ = 5.2 #AU
 
 while True:
     try:
@@ -46,26 +43,37 @@ while True:
         continue
     break
 
+#Plugging in the values for the inner planets and Jupiter
+MercR = EOQ(SMMerc, EccMerc, theta)
+VenusR = EOQ(SMV, EccV, theta)
 EarthR = EOQ(SME, EccE, theta)
+MarsR = EOQ(SMMars, EccMars, theta)
 JupiterR = EOQ(SMJ, EccJ, theta)
+
+#Changing polar coordinates to cartesian
+MeXCoord = MercR * np.sin(theta)
+MeYCoord = MercR * np.cos(theta)
+VXCoord = VenusR * np.sin(theta)
+VYCoord = VenusR * np.cos(theta)
 EXCoord = EarthR * np.sin(theta)
 EYCoord = EarthR * np.cos(theta)
+MaXCoord = MarsR * np.sin(theta)
+MaYCoord = MarsR * np.cos(theta)
 JXCoord = JupiterR * np.sin(theta)
 JYCoord = JupiterR * np.cos(theta)
 
 t = np.arange(0, 500, 1)
 for i in range(len(t)):
-    EXCoord = EarthR * np.sin(theta)
-    EYCoord = EarthR * np.cos(theta)
-    JXCoord = JupiterR * np.sin(theta)
-    JYCoord = JupiterR * np.cos(theta)
     plt.style.use('dark_background')
     plt.plot(0, 0, "*", color="gold", ms=10)
-    plt.plot(EXCoord[i], EYCoord[i], 'o', color="forestgreen", ms=1)
-    plt.plot(JXCoord[i], JYCoord[i], 'o', color="orange", ms=5)
+    plt.plot(MeXCoord[i], MeYCoord[i], 'o', color="lightgrey")
+    plt.plot(VXCoord[i], VYCoord[i], 'o', color="crimson")
+    plt.plot(EXCoord[i], EYCoord[i], 'o', color="forestgreen")
+    plt.plot(MaXCoord[i], MaYCoord[i], 'o', color="lightsalmon")
+    plt.plot(JXCoord[i], JYCoord[i], 'o', color="orange")
     plt.xlim(-6, 6)
     plt.ylim(-6, 6)
-    plt.title("Earth's Orbit with Eccentricity " + str(EccE) +
+    plt.title("Inner Planets' Orbit" +
               " Jupiter's Orbit with Eccentricity " + str(EccJ))
     plt.xlabel('x')
     plt.ylabel('y')
