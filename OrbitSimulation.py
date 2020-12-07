@@ -21,7 +21,8 @@ def EOQ(A, E, THET):
 
 
 #Initial Conditions
-theta = np.linspace(0, 2*np.pi, 500)
+N = 500
+theta = np.linspace(0, 2*np.pi, N)
 SMMerc = 0.4 #AU
 EccMerc = 0.205
 SMV = 0.7 #AU
@@ -62,17 +63,34 @@ MaYCoord = MarsR * np.cos(theta)
 JXCoord = JupiterR * np.sin(theta)
 JYCoord = JupiterR * np.cos(theta)
 
-t = np.arange(0, 500, 1)
+#This plots the final orbits
+plt.figure()
+plt.style.use('dark_background')
+plt.plot(0, 0, "*", color="gold", ms=10)
+plt.plot(MeXCoord, MeYCoord, 'o', color="lightgrey", ms=1)
+plt.plot(VXCoord, VYCoord, 'o', color="crimson", ms=1)
+plt.plot(EXCoord, EYCoord, 'o', color="forestgreen", ms=1)
+plt.plot(MaXCoord, MaYCoord, 'o', color="lightsalmon", ms=1)
+plt.plot(JXCoord, JYCoord, 'o', color="orange", ms=1)
+plt.xlim(-10, 10)
+plt.ylim(-10, 10)
+plt.title("Inner Planets' Orbit" +
+          " Jupiter's Orbit with Eccentricity " + str(EccJ))
+plt.xlabel('x')
+plt.ylabel('y')
+
+#This is saving the plots to save for an animation
+t = np.arange(0, N, 1)
 for i in range(len(t)):
     plt.style.use('dark_background')
     plt.plot(0, 0, "*", color="gold", ms=10)
-    plt.plot(MeXCoord[i], MeYCoord[i], 'o', color="lightgrey")
-    plt.plot(VXCoord[i], VYCoord[i], 'o', color="crimson")
-    plt.plot(EXCoord[i], EYCoord[i], 'o', color="forestgreen")
-    plt.plot(MaXCoord[i], MaYCoord[i], 'o', color="lightsalmon")
-    plt.plot(JXCoord[i], JYCoord[i], 'o', color="orange")
-    plt.xlim(-6, 6)
-    plt.ylim(-6, 6)
+    plt.plot(MeXCoord[i], MeYCoord[i], 'o', color="lightgrey", ms=1)
+    plt.plot(VXCoord[i], VYCoord[i], 'o', color="crimson", ms=1)
+    plt.plot(EXCoord[i], EYCoord[i], 'o', color="forestgreen", ms=1)
+    plt.plot(MaXCoord[i], MaYCoord[i], 'o', color="lightsalmon", ms=1)
+    plt.plot(JXCoord[i], JYCoord[i], 'o', color="orange", ms=1)
+    plt.xlim(-10, 10)
+    plt.ylim(-10, 10)
     plt.title("Inner Planets' Orbit" +
               " Jupiter's Orbit with Eccentricity " + str(EccJ))
     plt.xlabel('x')
