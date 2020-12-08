@@ -21,8 +21,11 @@ def EOQ(A, E, THET):
 
 
 #Initial Conditions
-N = 500
+N = 500 #Number of data points and images for the animation
 theta = np.linspace(0, 2*np.pi, N)
+
+#These are the values for the semi-major axis and eccentricity
+#The list follows Mercury, Venus, Earth, Mars, and Jupiter last
 SMMerc = 0.4 #AU
 EccMerc = 0.205
 SMV = 0.7 #AU
@@ -33,6 +36,7 @@ SMMars = 1.5 #AU
 EccMars = 0.094
 SMJ = 5.2 #AU
 
+#Limits the input for the eccentricity
 while True:
     try:
         EccJ = float(input("What would you like for Jupiter's eccentricity?"))
